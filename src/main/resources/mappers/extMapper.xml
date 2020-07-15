@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mapper sample file 입니다. -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="extMapper">
+    <resultMap id="extMap" type="com.FlowApp.root.model.addBeans">
+        <result property="ext" column="ext"/>
+        <result property="curDate" column="curDate"/>
+
+    </resultMap>
+
+    <!-- 체크가 되어있는 (즉, Y) 데이터를 수집합니다 (기존 차단 확장자) -->
+    <select id="getPreExist"
+            parameterType="com.FlowApp.root.model.addBeans"
+            resultMap="extMap">
+        SELECT ext, curDate FROM preexist
+        WHERE checked = 'Y';
+    </select>
+
+    <!-- 추가된 모든 확장자를 가져옵니다 (추가 차단 확장자) -->
+    <select id="getAddition"
+            parameterType="com.FlowApp.root.model.addBeans"
+            resultMap="extMap">
+        SELECT ext,curDate FROM additional;
+    </select>
+
+    <!-- 새로 업데이트가 될때 체크를 해제 할 수 있음으로 입력되지 않은것은 N 으로 변경합니다 (기존 차단 확장자)-->
+    <update id="updateResetAll" parameterType="com.FlowApp.root.model.addBeans">
+        update preexist
+        set checked = 'N', curDate = NOW();
+    </update>
+
+    <!-- 새로 업데이트가 될때 체크를 해제 할 수 있음으로 입력되지 않은것은 N 으로 변경합니다 (기존 차단 확장자)-->
+    <update id="updateReset" parameterType="com.FlowApp.root.model.addBeans">
+        update preexist
+        set checked = 'N', curDate = NOW()
+        where
+        <foreach collection="array" item="item" index="index" separator="OR">
+            ext &lt;&gt; ${array[index]} AND id &lt; 10
+        </foreach>
+    </update>
+
+    <!-- 새로 업데이트를 합니다 (기존 차단 확장자)-->
+    <update id="updatePreExist" parameterType="com.FlowApp.root.model.addBeans">
+        update preexist
+        set checked = 'Y', curDate = NOW()
+        where
+        <foreach collection="array" item="item" index="index" separator="OR">
+            ext = ${array[index]} AND id &lt; 10
+        </foreach>
+    </update>
+
+
+    <!-- 추가 확장자 데이터 추가 -->
+    <insert id="updateAddition" parameterType="com.FlowApp.root.model.addBeans"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO additional (ext, curDate)
+        VALUES
+        <foreach collection="array" item="item" index="index" separator=",">
+            (${array[index]}, NOW())
+        </foreach>
+        <selectKey resultType="java.lang.Integer" keyProperty="id">
+            select @@identity as id
+        </selectKey>
+    </insert>
+
+    <!-- 추가 확장자 데이터 모두 삭제 -->
+    <delete id="deleteAddition"
+            parameterType="com.FlowApp.root.model.addBeans">
+        truncate additional;
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,61 @@
+.container {
+    width: 80%;
+    margin: 80px auto;
+}
+
+.head {
+    width: 15%;
+}
+
+.tail {
+    width: 85%;
+}
+
+.push {
+    padding-top: 20px;
+}
+
+.box {
+    border: 1px solid black;
+    width: 70%;
+    height: 300px;
+    margin-top: 20px;
+}
+
+.add {
+    border: none;
+    background-color: lightgray;
+    margin-left: 5px;
+}
+
+.displayGenreDel {
+    text-align: center;
+    font-size: 13px;
+}
+
+.deleteX {
+    right: 0;
+    float: right;
+    margin-top: 3px !important;
+}
+
+.uk-card-small .uk-card-body, .uk-card-small.uk-card-body {
+    padding: 10px 10px !important;
+}
+
+/*기본속성*/
+.bold {
+    font-weight: bold;
+}
+
+.floatLeft {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+button {
+    padding: 5px 10px;
+}
