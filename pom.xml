@@ -279,7 +279,7 @@
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.5.3</version>
+			<version>3.5.6</version>
 		</dependency>
 		<!-- Log4Jdbc Log4j2 JDBC 4 1 (2019-11-28 기준 최신 버전) -->
 		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1 -->
@@ -326,7 +326,7 @@
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.5.3</version>
+			<version>3.5.6</version>
 		</dependency>
 	</dependencies>
 	<build>
